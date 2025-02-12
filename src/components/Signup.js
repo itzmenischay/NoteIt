@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
@@ -18,7 +17,6 @@ const Signup = (props) => {
       body: JSON.stringify({ name, email, password })
     });
     const json = await response.json();
-    console.log(json);
     if (json.success) {
       localStorage.setItem("token", json.authtoken);
       navigate("/");
