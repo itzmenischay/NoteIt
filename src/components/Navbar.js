@@ -1,13 +1,31 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  let navigate = useNavigate();
   let location = useLocation();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <Link className="navbar-brand text-bold" to="/">
-          iNotebook
+        <Link
+          className="navbar-brand text-bold"
+          to="/"
+          onClick={(e) => {
+            if (!localStorage.getItem("token")) {
+              e.preventDefault();
+              navigate("/login");
+            } else {
+              navigate("/");
+            }
+          }}
+        >
+          NoteIt
         </Link>
         <button
           className="navbar-toggler"
@@ -23,20 +41,48 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className={`nav-link ${location.pathname==="/"? "active": ""}`} aria-current="page" to="/">
+              <Link 
+                className={`nav-link ${location.pathname === "/" ? "active" : ""}`} 
+                to="/"
+                onClick={(e) => {
+                  if (!localStorage.getItem("token")) {
+                    e.preventDefault();
+                    navigate("/login");
+                  } else {
+                    navigate("/");
+                  }
+                }}
+              >
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${location.pathname==="/about"? "active": ""}`} to="/about">
+              <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">
                 About
               </Link>
             </li>
+            {/* {localStorage.getItem("token") && (
+              <li className="nav-item">
+                <Link className={`nav-link ${location.pathname === "/addnote" ? "active" : ""}`} to="/addnote">
+                  Add Note
+                </Link>
+              </li>
+            )} */}
           </ul>
-          <form className="d-flex">
-            <Link className="btn btn-primary mx-1" to="/login" role="button">Login</Link>
-            <Link className="btn btn-primary mx-1" to="/signup" role="button">Signup</Link>
-          </form>
+          {!localStorage.getItem("token") ? (
+            <form className="d-flex">
+              <Link className="btn btn-primary mx-1" to="/login" role="button">
+                Login
+              </Link>
+              <Link className="btn btn-success mx-1" to="/signup" role="button">
+                Signup
+              </Link>
+            </form>
+          ) : (
+            <button onClick={handleLogout} className="btn btn-danger">
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </nav>
