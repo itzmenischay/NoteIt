@@ -28,7 +28,9 @@ const AddNote = (props) => {
     };
 
     const onChange = (e) => {
-        setNote({ ...note, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        if (name === "etag" && value.length > 8) return;
+        setNote({ ...note, [name]: value });
     };
 
     return (
@@ -36,7 +38,7 @@ const AddNote = (props) => {
             <div className="floating-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <FaPlus className="plus-icon" />
             </div>
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="add-modal-position modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -55,7 +57,7 @@ const AddNote = (props) => {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="tag" className="form-label">Tag</label>
-                                    <input type="text" className="form-control" id="etag" value={note.etag} name="etag" onChange={onChange} />
+                                    <input type="text" className="form-control" id="etag" value={note.etag} name="etag" onChange={onChange} maxLength={8} />
                                 </div>
                             </form>
                         </div>

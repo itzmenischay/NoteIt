@@ -4,17 +4,15 @@
 }
 
 .notes-header {
-  position: absolute;
-  top: 90px;
   left: 140px;
   font-size: 26px;
   font-weight: bold;
   margin-bottom: 15px;
+  padding-left: 20px;
+  transform: translateY(20px);
 }
 
 .notes-list {
-  position: absolute;
-  top: 110px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
@@ -22,6 +20,7 @@
   overflow-y: auto;
   scrollbar-width: none;
   padding: 20px;
+  transform: translateY(30px);
 }
 
 .notes-list::-webkit-scrollbar {
@@ -60,4 +59,52 @@
 
 .btn-secondary:hover {
   background-color: #5a6268;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .notes-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .notes-header {
+    padding-left: 280px;
+    font-size: 22px;
+  }
+
+  .notes-list {
+    grid-template-columns: repeat(2, 1fr);
+    top: 130px;
+    padding: 10px 0 10px 24px;
+    gap: 15px;
+    transform: translateY(40px);
+  }
+  .edit-modal-position{
+    position: absolute !important;
+    left: 40px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .notes-header {
+    padding-left: 165px;
+    font-size: 20px;
+  }
+
+  .notes-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px 0 10px 12px;
+    transform: translateY(40px);
+  }
+
+  .note-card {
+    padding: 10px;
+  }
+  .edit-modal-position{
+    position: absolute !important;
+    left: 30px !important;
+  }
 }

@@ -62,3 +62,48 @@
   padding: 3px 6px;
   border-radius: 5px;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .note-card {
+    min-width: 300px;
+    max-width: 300px;
+    min-height: 200px;
+    max-height: 200px;
+  }
+
+  .note-title {
+    font-size: 16px;
+  }
+
+  .note-description {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .note-card {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 150px;
+    max-height: 150px;
+  }
+
+  .note-title {
+    font-size: 14px;
+  }
+
+  .note-description {
+    font-size: 12px;
+  }
+
+  .note-actions {
+    gap: 5px;
+    bottom: 8px;
+    right: 8px;
+  }
+
+  .icon-btn {
+    font-size: 16px;
+  }
+}

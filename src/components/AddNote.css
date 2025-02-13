@@ -14,13 +14,13 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: background 0.3s, transform 0.2s ease-in-out;
+    z-index: 5;
 }
 
 .floating-button:hover {
     background-color: #0056b3;
     transform: scale(1.15);
 }
-
 
 .plus-icon {
     font-size: 28px;
@@ -84,4 +84,42 @@
 
 .addnote-btn:hover:not(:disabled) {
     background: #0056b3;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .floating-button {
+        width: 50px;
+        height: 50px;
+        left: 16px;
+    }
+    .plus-icon {
+        font-size: 24px;
+    }
+    .modal-content {
+        width: 95%;
+    }
+    .add-modal-position{
+        position: absolute !important;
+        left: 50px !important;
+      }
+}
+
+@media (max-width: 480px) {
+    .floating-button {
+        width: 45px;
+        height: 45px;
+        left: 12px;
+    }
+    .plus-icon {
+        font-size: 22px;
+    }
+    .modal-content {
+        width: 100%;
+        max-width: 350px;
+    }
+    .add-modal-position{
+        position: absolute !important;
+        left: 56px !important;
+      }
 }
