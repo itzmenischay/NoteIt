@@ -20,6 +20,7 @@ const Noteitem = (props) => {
             <i className="fa-solid fa-trash"></i>
           </button>
         </div>
+        <span className="note-tag">{note.tag}</span>
       </div>
     </div>
   );

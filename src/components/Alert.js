@@ -1,23 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import "./Alert.css";
 
-function Alert(props) {
-    const capitalize = (word)=>{
-      if (word==="danger"){
-        word = "error"
-      }
-        const lower = word.toLowerCase();
-        return lower.charAt(0).toUpperCase() + lower.slice(1);
-    }
+function Alert({ alert }) {
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        if (alert) {
+            setVisible(true);
+            const timer = setTimeout(() => {
+                setVisible(false);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [alert]);
+
+    const capitalize = (word) => {
+        if (word === "danger") {
+            word = "error";
+        }
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    };
+
     return (
-        <div style={{height: '50px'}}>
-        {props.alert && <div className={`alert alert-${props.alert.type} alert-dismissible fade show`} role="alert">
-           <strong>{capitalize(props.alert.type)}</strong>: {props.alert.msg} 
-        </div>}
+        <div className={`alert-container ${visible ? "show" : "hide"}`}>
+            {alert && (
+                <div className={`alert-box alert-${alert.type}`}>
+                    <strong>{capitalize(alert.type)}</strong>: {alert.msg}
+                </div>
+            )}
         </div>
-    )
+    );
 }
 
-export default Alert
-
-
-
+export default Alert;
