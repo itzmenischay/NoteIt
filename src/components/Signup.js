@@ -52,7 +52,7 @@ const Signup = (props) => {
             <label htmlFor="cpassword">Confirm Password</label>
             <input type="password" className="form-control" id="cpassword" name="cpassword" onChange={onChange} minLength={5} required />
           </div>
-          <button type="submit" className="signup-button">Sign Up</button>
+          <button type="submit" className="signup-button btn-success">Sign Up</button>
         </form>
       </div>
     </div>
