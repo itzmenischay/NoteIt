@@ -1,12 +1,12 @@
-/* Floating button styles */
+/* Floating Button */
 .floating-button {
     position: fixed;
     top: 80px;
     left: 24px;
     background-color: #007bff;
     color: white;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -18,15 +18,15 @@
 
 .floating-button:hover {
     background-color: #0056b3;
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
-/* Plus icon */
+
 .plus-icon {
-    font-size: 24px;
+    font-size: 28px;
 }
 
-/* Modal styles */
+/* Modal */
 .modal-overlay {
     position: fixed;
     top: 0;
