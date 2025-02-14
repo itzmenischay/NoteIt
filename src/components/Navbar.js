@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
 const Navbar = () => {
   let navigate = useNavigate();
   let location = useLocation();
-  const [userName, setUserName] = useState("");
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -24,9 +22,7 @@ const Navbar = () => {
           );
 
           const data = await response.json();
-          if (response.ok) {
-            setUserName(data.name);
-          } else {
+          if (!response.ok) {
             console.error("Error fetching user:", data.error);
           }
         } catch (error) {
@@ -57,20 +53,6 @@ const Navbar = () => {
   useEffect(() => {
     closeNavbar();
   }, [location]);
-
-  // Close dropdown if clicking outside of it
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   return (
     <>
@@ -108,9 +90,7 @@ const Navbar = () => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link
-                  className={`nav-link ${
-                    location.pathname === "/" ? "active" : ""
-                  }`}
+                  className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
                   to="/"
                   onClick={closeNavbar}
                 >
@@ -119,9 +99,7 @@ const Navbar = () => {
               </li>
               <li className="nav-item">
                 <Link
-                  className={`nav-link ${
-                    location.pathname === "/about" ? "active" : ""
-                  }`}
+                  className={`nav-link ${location.pathname === "/about" ? "active" : ""}`}
                   to="/about"
                   onClick={closeNavbar}
                 >
@@ -149,39 +127,12 @@ const Navbar = () => {
                 </Link>
               </form>
             ) : (
-              <div className="d-flex align-items-center">
-                {userName && (
-                  <div className="dropdown" ref={dropdownRef}>
-                    <button
-                      className="btn btn-secondary dropdown-toggle d-flex align-items-center"
-                      type="button"
-                      onClick={() => setDropdownOpen(!dropdownOpen)}
-                      aria-expanded={dropdownOpen}
-                    >
-                      Welcome, {userName}
-                    </button>
-                    {dropdownOpen && (
-                      <ul
-                        className="dropdown-menu show"
-                        style={{
-                          display: "block",
-                          position: "absolute",
-                          right: 0,
-                        }}
-                      >
-                        <li>
-                          <button
-                            className="dropdown-item logout-btn"
-                            onClick={handleLogout}
-                          >
-                            Logout
-                          </button>
-                        </li>
-                      </ul>
-                    )}
-                  </div>
-                )}
-              </div>
+              <button
+                className="btn btn-danger mx-2"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
             )}
           </div>
         </div>
@@ -189,22 +140,6 @@ const Navbar = () => {
 
       {/* Add padding to body to prevent overlap */}
       <div style={{ paddingTop: "56px" }}></div>
-
-      {/* Custom Styles */}
-      <style>
-        {`
-          .logout-btn {
-            color: #dc3545;
-            font-weight: 500;
-            transition: background-color 0.3s, color 0.3s, font-weight 0.3s;
-          }
-          .logout-btn:hover {
-            background-color: #bb2d3b;
-            color: white;
-            font-weight: 600;
-          }
-        `}
-      </style>
     </>
   );
 };

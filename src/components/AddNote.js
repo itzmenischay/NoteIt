@@ -29,7 +29,7 @@ const AddNote = (props) => {
 
     const onChange = (e) => {
         const { name, value } = e.target;
-        if (name === "etag" && value.length > 8) return;
+        if (name === "etag" && value.length > 14) return;
         setNote({ ...note, [name]: value });
     };
 
@@ -57,7 +57,7 @@ const AddNote = (props) => {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="tag" className="form-label">Tag</label>
-                                    <input type="text" className="form-control" id="etag" value={note.etag} name="etag" onChange={onChange} maxLength={8} />
+                                    <input type="text" className="form-control" id="etag" value={note.etag} name="etag" onChange={onChange} maxLength={14} />
                                 </div>
                             </form>
                         </div>
