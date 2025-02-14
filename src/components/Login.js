@@ -21,6 +21,8 @@ const Login = (props) => {
     const json = await response.json();
     if (json.success) {
       localStorage.setItem("token", json.authtoken);
+      localStorage.setItem("userName", json.name); // Store username
+      window.dispatchEvent(new Event("storage")); // Trigger event for Navbar
       props.showAlert("Logged in successfully", "success");
       navigate("/");
     } else {

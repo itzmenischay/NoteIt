@@ -5,11 +5,11 @@
 
 .notes-header {
   left: 140px;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: bold;
   margin-bottom: 15px;
   padding-left: 20px;
-  transform: translateY(20px);
+  transform: translateY(18px);
 }
 
 .notes-list {
@@ -20,7 +20,7 @@
   overflow-y: auto;
   scrollbar-width: none;
   padding: 20px;
-  transform: translateY(30px);
+  transform: translateY(24px);
 }
 
 .notes-list::-webkit-scrollbar {
