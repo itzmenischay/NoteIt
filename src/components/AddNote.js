@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { FaPlus } from "react-icons/fa";
 import noteContext from "../context/notes/noteContext";
-import "./AddNote.css";
+import "../styles/AddNote.css";
 
 const AddNote = (props) => {
     const context = useContext(noteContext);

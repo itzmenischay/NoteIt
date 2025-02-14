@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import "./Alert.css";
+import "../styles/Alert.css";
 
 function Alert({ alert }) {
     const [visible, setVisible] = useState(false);
