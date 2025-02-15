@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -6,6 +6,7 @@ const Navbar = () => {
   let location = useLocation();
   const [userName, setUserName] = useState("");
   const [showWelcome, setShowWelcome] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
   const fetchUserName = async () => {
     const token = localStorage.getItem("token");
@@ -23,13 +24,16 @@ const Navbar = () => {
         if (response.ok) {
           setUserName(data.name);
           setShowWelcome(false);
-          setTimeout(() => setShowWelcome(true), 500); // Show welcome message after 0.5s
+          setTimeout(() => setShowWelcome(true), 500);
+          setIsLoggedIn(true);
         } else {
-          console.error("Error fetching user:", data.error);
+          setIsLoggedIn(false);
         }
       } catch (error) {
-        console.error("Error fetching user:", error);
+        setIsLoggedIn(false);
       }
+    } else {
+      setIsLoggedIn(false);
     }
   };
 
@@ -47,59 +51,44 @@ const Navbar = () => {
     };
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
+    sessionStorage.removeItem("sessionActive");
     setUserName("");
     setShowWelcome(false);
-    navigate("/login");
-    closeNavbar();
-  };
-
-  const closeNavbar = () => {
-    const navbar = document.getElementById("navbarSupportedContent");
-    if (navbar && navbar.classList.contains("show")) {
-      const bsCollapse = new window.bootstrap.Collapse(navbar, {
-        toggle: true,
-      });
-      bsCollapse.hide();
-    }
-  };
+    setIsLoggedIn(false);
+    navigate("/login", { replace: true });
+  }, [navigate]);
 
   useEffect(() => {
-    closeNavbar();
-  }, [location]);
-
-  // Logout when user presses the back button
-  useEffect(() => {
-    const handleBackButton = () => {
-      localStorage.removeItem("token"); // Remove token
-      setUserName(""); // Clear username
-      setShowWelcome(false); // Hide welcome message
-      navigate("/login"); // Redirect to login page
+    const handleBackForwardButton = () => {
+      handleLogout();
     };
-
-    window.addEventListener("popstate", handleBackButton);
+    
+    window.addEventListener("popstate", handleBackForwardButton);
 
     return () => {
-      window.removeEventListener("popstate", handleBackButton);
+      window.removeEventListener("popstate", handleBackForwardButton);
     };
-  }, [navigate]); // Only depends on navigate
+  }, [handleLogout]);
+
+  useEffect(() => {
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = () => {
+      window.history.pushState(null, null, window.location.href);
+      handleLogout();
+    };
+  }, [handleLogout]);
 
   return (
     <>
       <nav
         id="navbar"
         className="navbar navbar-expand-lg navbar-dark bg-dark"
-        style={{
-          zIndex: 1050,
-          position: "fixed",
-          top: 0,
-          width: "100%",
-          overflow: "visible",
-        }}
+        style={{ zIndex: 1050, position: "fixed", top: 0, width: "100%" }}
       >
         <div className="container-fluid">
-          <Link className="navbar-brand text-bold" to="/" onClick={() => navigate("/")}>NoteIt</Link>
+          <Link className="navbar-brand" to="/" onClick={() => navigate("/")}>NoteIt</Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -114,25 +103,33 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} to="/" onClick={closeNavbar}>Home</Link>
+                <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} to="/">
+                  Home
+                </Link>
               </li>
               <li className="nav-item">
-                <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about" onClick={closeNavbar}>About</Link>
+                <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">
+                  About
+                </Link>
               </li>
             </ul>
-            {!localStorage.getItem("token") ? (
+            {!isLoggedIn ? (
               <form className="d-flex">
-                <Link className="btn btn-primary mx-1" to="/login" role="button" onClick={closeNavbar}>Login</Link>
-                <Link className="btn btn-success mx-1" to="/signup" role="button" onClick={closeNavbar}>Signup</Link>
+                <Link className="btn btn-primary mx-1" to="/login" role="button">
+                  Login
+                </Link>
+                <Link className="btn btn-success mx-1" to="/signup" role="button">
+                  Signup
+                </Link>
               </form>
             ) : (
               <div className="d-flex align-items-center">
-                <span 
-                  className={`text-white me-3 welcome-message ${showWelcome ? "fade-in" : "opacity-0"}`}
-                >
+                <span className={`text-white me-3 welcome-message ${showWelcome ? "fade-in" : "opacity-0"}`}>
                   Welcome, {userName}
                 </span>
-                <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
+                <button className="btn btn-danger" onClick={handleLogout}>
+                  Logout
+                </button>
               </div>
             )}
           </div>
