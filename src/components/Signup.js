@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import "../styles/Signup.css";
 
@@ -33,31 +34,36 @@ const Signup = (props) => {
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-card">
-        <h2 className="signup-title">Create an account</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input type="text" className="form-control" id="name" name="name" onChange={onChange} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email address</label>
-            <input type="email" className="form-control" id="email" name="email" onChange={onChange} required />
-            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input type="password" className="form-control" id="password" name="password" onChange={onChange} minLength={5} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="cpassword">Confirm Password</label>
-            <input type="password" className="form-control" id="cpassword" name="cpassword" onChange={onChange} minLength={5} required />
-          </div>
-          <button type="submit" className="signup-button btn-success">Sign Up</button>
-        </form>
+    <>
+      <Helmet>
+        <title>NoteIt - Signup</title>
+      </Helmet>
+      <div className="signup-container">
+        <div className="signup-card">
+          <h2 className="signup-title">Create an account</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input type="text" className="form-control" id="name" name="name" onChange={onChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email address</label>
+              <input type="email" className="form-control" id="email" name="email" onChange={onChange} required />
+              <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input type="password" className="form-control" id="password" name="password" onChange={onChange} minLength={5} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="cpassword">Confirm Password</label>
+              <input type="password" className="form-control" id="cpassword" name="cpassword" onChange={onChange} minLength={5} required />
+            </div>
+            <button type="submit" className="signup-button btn-success">Sign Up</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

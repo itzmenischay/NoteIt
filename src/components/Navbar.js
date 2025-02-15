@@ -88,7 +88,7 @@ const Navbar = () => {
         style={{ zIndex: 1050, position: "fixed", top: 0, width: "100%" }}
       >
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/" onClick={() => navigate("/")}>NoteIt</Link>
+          <Link className="navbar-brand Logo-" to="/" onClick={() => navigate("/")}>NoteIt</Link>
           <button
             className="navbar-toggler"
             type="button"
