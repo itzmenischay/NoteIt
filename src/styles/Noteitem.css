@@ -1,8 +1,9 @@
+/* Note Item Styles */
 .note-card {
-  min-width: 300px;
-  max-width: 300px;
-  min-height: 300px;
-  max-height: 300px;
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 200px;
+  max-height: 200px;
   background-color: #eef0fd;
   border-radius: 12px;
   padding: 15px;
@@ -66,10 +67,10 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .note-card {
-    min-width: 300px;
-    max-width: 300px;
-    min-height: 200px;
-    max-height: 200px;
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 250px;
+    max-height: 250px;
   }
 
   .note-title {
@@ -83,10 +84,10 @@
 
 @media (max-width: 480px) {
   .note-card {
-    min-width: 200px;
-    max-width: 200px;
-    min-height: 150px;
-    max-height: 150px;
+    min-width: 160px;
+    max-width: 160px;
+    min-height: 120px;
+    max-height: 120px;
   }
 
   .note-title {
@@ -105,5 +106,9 @@
 
   .icon-btn {
     font-size: 16px;
+  }
+
+  .note-tag {
+    display: none;
   }
 }

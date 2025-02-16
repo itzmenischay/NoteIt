@@ -1,0 +1,25 @@
+/* Navbar */
+#navbar {
+    z-index: 1050;
+}
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+/* Welcome message */
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+/* Placeholder to prevent content from hiding behind navbar */
+.navbar-placeholder {
+    padding-top: 56px;
+}

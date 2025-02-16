@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import "../styles/Navbar.css"; // Import the CSS file
 
 const Navbar = () => {
   let navigate = useNavigate();
@@ -64,7 +65,7 @@ const Navbar = () => {
     const handleBackForwardButton = () => {
       handleLogout();
     };
-    
+
     window.addEventListener("popstate", handleBackForwardButton);
 
     return () => {
@@ -82,13 +83,9 @@ const Navbar = () => {
 
   return (
     <>
-      <nav
-        id="navbar"
-        className="navbar navbar-expand-lg navbar-dark bg-dark"
-        style={{ zIndex: 1050, position: "fixed", top: 0, width: "100%" }}
-      >
+      <nav id="navbar" className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div className="container-fluid">
-          <Link className="navbar-brand Logo-" to="/" onClick={() => navigate("/")}>NoteIt</Link>
+          <Link className="navbar-brand logo" to="/" onClick={() => navigate("/")}>NoteIt</Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -135,19 +132,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <div style={{ paddingTop: "56px" }}></div>
-
-      <style>
-        {`
-          .fade-in {
-            opacity: 1;
-            transition: opacity 0.8s ease-in-out;
-          }
-          .opacity-0 {
-            opacity: 0;
-          }
-        `}
-      </style>
+      <div className="navbar-placeholder"></div>
     </>
   );
 };
