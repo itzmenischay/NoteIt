@@ -1,3 +1,4 @@
+require("dotenv").config(); // Add this to load environment variables
 const express = require("express");
 const User = require("../models/User");
 const router = express.Router();
@@ -6,7 +7,8 @@ const bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 var fetchuser = require("../middleware/fetchuser");
 
-const JWT_SECRET = "Nischay@";
+// Access JWT_SECRET from the environment variable
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // ROUTE 1: Create a User using: POST "/api/auth/createuser". No Login required
 router.post(
@@ -29,7 +31,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ success, error: "Sorry a user with this email already exits." });
+          .json({ success, error: "Sorry a user with this email already exists." });
       }
       const salt = await bcrypt.genSalt(10);
       const secPass = await bcrypt.hash(req.body.password, salt);
