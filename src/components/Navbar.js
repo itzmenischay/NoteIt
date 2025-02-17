@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/Navbar.css"; // Import the CSS file
 
@@ -8,6 +8,7 @@ const Navbar = () => {
   const [userName, setUserName] = useState("");
   const [showWelcome, setShowWelcome] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const dropdownRef = useRef(null); // Reference to the navbar dropdown
 
   const fetchUserName = async () => {
     const token = localStorage.getItem("token");
@@ -81,6 +82,24 @@ const Navbar = () => {
     };
   }, [handleLogout]);
 
+  // Detect click outside the navbar to close the dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        const dropdown = document.getElementById('navbarSupportedContent');
+        if (dropdown && dropdown.classList.contains('show')) {
+          dropdown.classList.remove('show');
+        }
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <nav id="navbar" className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -97,7 +116,7 @@ const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent" ref={dropdownRef}>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} to="/">

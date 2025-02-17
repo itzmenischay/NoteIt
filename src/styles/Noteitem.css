@@ -82,6 +82,37 @@
   }
 }
 
+@media (max-width: 500px) {
+  .note-card {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 120px;
+    max-height: 120px;
+  }
+
+  .note-title {
+    font-size: 14px;
+  }
+
+  .note-description {
+    font-size: 12px;
+  }
+
+  .note-actions {
+    gap: 5px;
+    bottom: 8px;
+    right: 8px;
+  }
+
+  .icon-btn {
+    font-size: 16px;
+  }
+
+  .note-tag {
+    display: none;
+  }
+}
+
 @media (max-width: 480px) {
   .note-card {
     min-width: 160px;
