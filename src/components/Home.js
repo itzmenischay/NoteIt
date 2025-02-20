@@ -7,7 +7,7 @@ export const Home = (props) => {
   return (
     <>
       <Helmet>
-        <title>NoteIt - Your notes secured in the cloud</title>
+        <title>NoteIt -Your Notes on the Cloud</title>
       </Helmet>
       <div>
           <Notes showAlert={showAlert}/>
